@@ -10,13 +10,7 @@ import (
 )
 
 func TestCoverage(t *testing.T) {
-	cmd := exec.Command("go", "test", "-coverprofile", "cover.out", "./task/...")
-	err := cmd.Run()
-	if err != nil {
-		t.Error(err)
-	}
-
-	cmd = exec.Command("go", "tool", "cover", "-func", "cover.out")
+	cmd := exec.Command("go", "test", "-cover", "./task/...")
 
 	out, err := cmd.Output()
 	if err != nil {
@@ -24,7 +18,7 @@ func TestCoverage(t *testing.T) {
 	}
 
 	fmt.Println(string(out))
-	re, err := regexp.Compile("total:.*")
+	re, err := regexp.Compile("coverage:.*")
 	if err != nil {
 		t.Error(err)
 	}
